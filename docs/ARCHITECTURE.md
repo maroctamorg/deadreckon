@@ -23,11 +23,13 @@ AI validation layer (future service)
 Input:
 
 + Logseq markdown files
++ The first top-level bullet of each source page declares the page type:
+  `[[home]]`, `[[topic]]`, or `[[problem]]`
 
 Processing steps:
 
 1. Parse markdown files
-2. Extract topics, problems, and links
+2. Read the page type tag and extract home pages, topics, problems, and links
 3. Build directed content graph
 4. Resolve relationships (topic ↔ problem ↔ references)
 5. Generate structured page data for frontend

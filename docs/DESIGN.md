@@ -4,8 +4,16 @@ The platform is deterministically content-driven, at least in its first stage.
 
 The markdown source structure contains three types of pages:
 
+Every source page must declare its page type as the first top-level Logseq bullet.
+The page type bullet is a Logseq page tag and is not rendered as content:
+
+- `[[home]]`
+- `[[topic]]`
+- `[[problem]]`
+
 Home
 
+- `[[home]]`
 - hero
   - title
   - summary
@@ -13,6 +21,7 @@ Home
 
 Topic
 
+- `[[topic]]`
 - dependencies (topics) - logseq links
 - overview
 - problems (OR references at the lowest level) - logseq links
@@ -20,6 +29,7 @@ Topic
 
 Problem
 
+- `[[problem]]`
 - topic - logseq link
 - statement
 - hints
