@@ -1,0 +1,78 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { Problem } from "@/domain/content/index.ts";
+import { GetTopicPath, LoadContentGraph, RenderSectionHtml } from "@/generation/site.ts";
+
+interface Props {
+  problem: Problem;
+}
+
+export async function getStaticPaths() {
+  const graph = await LoadContentGraph();
+
+  return graph.problems.map((node) => ({
+    params: { id: node.page.id },
+    props: { problem: node.page }
+  }));
+}
+
+const { problem } = Astro.props as Props;
+---
+
+<BaseLayout title={problem.title} description={problem.statement.content}>
+  <article class="content-page">
+    <header class="page-header">
+      <p class="eyebrow">Problem</p>
+      <h1>{problem.title}</h1>
+      <p class="page-nav">
+        <a href="/">Home</a>
+      </p>
+    </header>
+
+    {problem.topicReferences !== null && (
+      <section class="content-section">
+        <h2>Topic</h2>
+        <ul class="link-list">
+          {problem.topicReferences.map((topic) => (
+            <li>
+              <a href={GetTopicPath(topic.title)}>{topic.title}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="content-section">
+      <h2>Statement</h2>
+      <div class="section-body" set:html={RenderSectionHtml(problem.statement.content)} />
+    </section>
+
+    {problem.hints !== null && (
+      <section class="content-section">
+        <h2>Hints</h2>
+        <div class="section-body" set:html={RenderSectionHtml(problem.hints.content)} />
+      </section>
+    )}
+
+    {problem.sketch !== null && (
+      <section class="content-section">
+        <h2>Sketch</h2>
+        <div class="section-body" set:html={RenderSectionHtml(problem.sketch.content)} />
+      </section>
+    )}
+
+    {problem.modelSolution !== null && (
+      <section class="content-section">
+        <h2>Model Solution</h2>
+        <div class="section-body" set:html={RenderSectionHtml(problem.modelSolution.content)} />
+      </section>
+    )}
+
+    {problem.summary !== null && (
+      <section class="content-section">
+        <h2>Summary and Key Ideas</h2>
+        <div class="section-body" set:html={RenderSectionHtml(problem.summary.content)} />
+      </section>
+    )}
+  </article>
+</BaseLayout>

@@ -1,0 +1,79 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { Topic } from "@/domain/content/index.ts";
+import { GetProblemPath, GetTopicPath, LoadContentGraph, RenderSectionHtml } from "@/generation/site.ts";
+
+interface Props {
+  topic: Topic;
+}
+
+export async function getStaticPaths() {
+  const graph = await LoadContentGraph();
+
+  return graph.topics.map((node) => ({
+    params: { id: node.page.id },
+    props: { topic: node.page }
+  }));
+}
+
+const { topic } = Astro.props as Props;
+---
+
+<BaseLayout title={topic.title} description={topic.overview?.content ?? topic.title}>
+  <article class="content-page">
+    <header class="page-header">
+      <p class="eyebrow">Topic</p>
+      <h1>{topic.title}</h1>
+      <p class="page-nav">
+        <a href="/">Home</a>
+      </p>
+    </header>
+
+    {topic.dependencies !== null && (
+      <section class="content-section">
+        <h2>Dependencies</h2>
+        <ul class="link-list">
+          {topic.dependencies.map((dependency) => (
+            <li>
+              <a href={GetTopicPath(dependency.title)}>{dependency.title}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {topic.overview !== null && (
+      <section class="content-section">
+        <h2>Overview</h2>
+        <div class="section-body" set:html={RenderSectionHtml(topic.overview.content)} />
+      </section>
+    )}
+
+    {topic.problemReferences !== null && (
+      <section class="content-section">
+        <h2>Problems</h2>
+        <ul class="link-list">
+          {topic.problemReferences.map((problem) => (
+            <li>
+              <a href={GetProblemPath(problem.title)}>{problem.title}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {topic.references !== null && (
+      <section class="content-section">
+        <h2>References</h2>
+        <div class="section-body" set:html={RenderSectionHtml(topic.references.content)} />
+      </section>
+    )}
+
+    {topic.summary !== null && (
+      <section class="content-section">
+        <h2>Summary and Key Ideas</h2>
+        <div class="section-body" set:html={RenderSectionHtml(topic.summary.content)} />
+      </section>
+    )}
+  </article>
+</BaseLayout>

@@ -1,17 +1,30 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { GetTopicPath, LoadContentGraph } from "@/generation/site.ts";
+
+const graph = await LoadContentGraph();
+const home = graph.home.page;
+const topics = home.topicReferences ?? graph.topics.map((node) => ({ title: node.page.title }));
 ---
 
 <BaseLayout
-  title="Dead Reckon"
-  description="A markdown-driven learning platform for structured study."
+  title={home.title}
+  description={home.hero.summary}
 >
-  <section class="intro">
+  <section class="hero-card">
     <p class="eyebrow">Static knowledge platform</p>
-    <h1>Dead Reckon</h1>
-    <p>
-      A deterministic, markdown-driven learning site for structured study of mathematics,
-      physics, and computer science.
-    </p>
+    <h1>{home.hero.title}</h1>
+    <p class="lede">{home.hero.summary}</p>
+  </section>
+
+  <section class="content-section">
+    <h2>Topics</h2>
+    <ul class="link-list">
+      {topics.map((topic) => (
+        <li>
+          <a href={GetTopicPath(topic.title)}>{topic.title}</a>
+        </li>
+      ))}
+    </ul>
   </section>
 </BaseLayout>
