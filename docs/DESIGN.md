@@ -2,7 +2,14 @@
 
 The platform is deterministically content-driven, at least in its first stage.
 
-The markdown source structure contains two types of pages:
+The markdown source structure contains three types of pages:
+
+Home
+
+- hero
+  - title
+  - summary
+- topics
 
 Topic
 
@@ -21,6 +28,8 @@ Problem
 - summary and key ideas
 
 Note that the problem has no connection to the parent topic, leaving the door open for multiple topics sharing the same problem.
+
+Also note that there is exactly one home page, and it maps to the website root/landing.
 
 The platform will generate a static website from a folder of such pages.
 It will render the markdown content as it is, with some special considerations:
