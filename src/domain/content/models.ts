@@ -39,6 +39,7 @@ export interface Topic {
   dependencies: ContentReference[] | null;
   overview: OptionalContentSection;
   problemReferences: ContentReference[] | null;
+  references: OptionalContentSection;
   summary: OptionalContentSection;
 }
 

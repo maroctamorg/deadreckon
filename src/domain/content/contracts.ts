@@ -1,4 +1,4 @@
-import type { ContentPage } from "./models";
+import type { ContentPage } from "./models.ts";
 
 export interface ContentSourceFile {
   path: string;

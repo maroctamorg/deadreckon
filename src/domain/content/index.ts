@@ -17,7 +17,7 @@ export type {
   ProblemId,
   Topic,
   TopicId
-} from "./models";
+} from "./models.ts";
 
 export type {
   ContentParseError,
@@ -25,4 +25,4 @@ export type {
   ContentParser,
   ContentSourceLocation,
   ContentSourceFile
-} from "./contracts";
+} from "./contracts.ts";
