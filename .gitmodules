@@ -1,0 +1,3 @@
+[submodule "content/logseq"]
+	path = content/logseq
+	url = https://github.com/maroctamorg/deadreckon-logseq
