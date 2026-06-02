@@ -8,23 +8,23 @@ The system is designed to be extended over time (user accounts, progress trackin
 
 ### Core principles
 
-1. Maintainability first
+Maintainability first
 
 Code must be written to minimize future rework cost. Prefer solutions that reduce coupling, avoid hidden complexity, and make future changes predictable. Optimization for elegance or cleverness should be found to be subordinate to, and not at odds with, long-term maintainability and clarity.
 
-1. Clarity over density
+Clarity over density
 
 Code should be self-documenting. Naming, structure, and decomposition should make intent obvious without requiring external explanation. Comments are allowed only when they add essential context that cannot be expressed in code (e.g. domain constraints, non-obvious design decisions, external system limitations).
 
-1. Specification-first design
+Specification-first design
 
 Before implementing features, define clear contracts, interfaces, and data models. Prefer designing boundaries first (inputs, outputs, responsibilities) before implementation details. Changes should flow through interfaces, not ad-hoc coupling.
 
-1. Pragmatic dependency management
+Pragmatic dependency management
 
 Do not reinvent functionality that is already well-solved, widely adopted, and stable (e.g. authentication libraries, markdown parsing, build tooling). However, avoid unnecessary or overly complex dependencies for simple tasks. Prefer small, well-maintained, widely used libraries over large frameworks unless justified.
 
-1. Static system design
+Static system design
 
 The system must remain static in Stage 1:
 
@@ -90,6 +90,12 @@ Stage 4:
 - adaptive learning and personalization
 
 All implementations must respect current stage constraints and avoid introducing future-stage complexity prematurely.
+
+---
+
+### Development approach
+
+Work in branches for each larger feature being implemented, stop and request review/approval often so I have the opportunity to commit only code that I review, and do so often (small, frequent commits).
 
 ---
 
