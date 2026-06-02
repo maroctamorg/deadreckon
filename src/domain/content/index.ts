@@ -26,3 +26,7 @@ export type {
   ContentSourceLocation,
   ContentSourceFile
 } from "./contracts.ts";
+
+export { BuildContentGraph } from "./graphBuilder.ts";
+
+export type { ContentGraphBuildResult, ContentGraphWarning } from "./graphBuilder.ts";

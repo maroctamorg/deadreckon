@@ -26,21 +26,6 @@ export async function ParseLogseqContent(
 
   return {
     pages,
-    errors: [...errors, ...ValidateParsedPages(pages)]
+    errors
   };
-}
-
-function ValidateParsedPages(pages: ContentPage[]): ContentParseError[] {
-  const homePages = pages.filter((page) => page.kind === "home");
-
-  if (homePages.length === 1) {
-    return [];
-  }
-
-  return [
-    {
-      sourcePath: "content/logseq/pages",
-      message: `Expected exactly one home page, found ${homePages.length}.`
-    }
-  ];
 }

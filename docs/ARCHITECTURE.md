@@ -25,7 +25,8 @@ Input:
 + Logseq markdown files
 + The first top-level bullet of each source page declares the page type:
   `[[home]]`, `[[topic]]`, or `[[problem]]`
-+ Blank Logseq pages are ignored and do not become content pages
++ Pages that cannot be parsed log warnings and are skipped rather than failing the
+  whole content build
 
 Processing steps:
 

@@ -9,6 +9,8 @@ interface BulletStackEntry {
   bullet: LogseqBullet;
 }
 
+const LOGSEQ_SPACE_INDENT_WIDTH = 2;
+
 export function ParseLogseqBullets(content: string): LogseqBullet[] {
   const roots: LogseqBullet[] = [];
   const stack: BulletStackEntry[] = [];
@@ -77,5 +79,5 @@ function GetIndentLevel(indent: string): number {
     }
   }
 
-  return level + Math.floor(spaces / 2);
+  return level + Math.floor(spaces / LOGSEQ_SPACE_INDENT_WIDTH);
 }
