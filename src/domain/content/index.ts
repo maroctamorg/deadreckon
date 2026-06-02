@@ -1,6 +1,7 @@
 export type {
   ContentGraph,
   ContentId,
+  ContentImage,
   ContentPage,
   ContentPageKind,
   ContentPageTypeTag,

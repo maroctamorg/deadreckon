@@ -5,6 +5,7 @@ import type {
   ContentPageTypeTag,
   ContentParser,
   ContentParseError,
+  ContentImage,
   ContentReference,
   ContentSection,
   ContentSourceFile,
@@ -115,6 +116,7 @@ function ParseTopic(
   bullets: LogseqBullet[]
 ): ContentPageParseResult {
   const sections = GetSectionsByTitle(bullets);
+  const image = ParseImage(sections.get("image"));
   const dependencies = ParseReferenceList(sourcePath, sections.get("dependencies"));
   const problemReferences = ParseReferenceList(sourcePath, sections.get("problems"));
 
@@ -124,6 +126,7 @@ function ParseTopic(
       kind: "topic",
       id: NormalizeContentId(title),
       title,
+      image,
       dependencies: dependencies.references,
       overview: ParseSection(sections.get("overview")),
       problemReferences: problemReferences.references,
@@ -258,5 +261,73 @@ function NormalizeContentId(title: string): string {
 }
 
 function GetTitleFromPath(path: string): string {
-  return basename(path, extname(path));
+  return ToDisplayTitle(basename(path, extname(path)));
+}
+
+function ParseImage(section: LogseqBullet | undefined): ContentImage | null {
+  if (section === undefined || section.children.length === 0) {
+    return null;
+  }
+
+  for (const child of section.children) {
+    const image = ParseImageContent(child.content);
+
+    if (image !== null) {
+      return image;
+    }
+  }
+
+  return null;
+}
+
+function ParseImageContent(content: string): ContentImage | null {
+  const trimmed = content.trim();
+
+  if (trimmed.length === 0) {
+    return null;
+  }
+
+  const markdownImageMatch = trimmed.match(/^!\[([^\]]*)\]\((.+)\)$/);
+
+  if (markdownImageMatch !== null) {
+    return {
+      src: markdownImageMatch[2].trim(),
+      alt: markdownImageMatch[1].trim().length > 0 ? markdownImageMatch[1].trim() : null
+    };
+  }
+
+  const logseqImageMatch = trimmed.match(/^!\[\[(.+)\]\]$/);
+
+  if (logseqImageMatch !== null) {
+    return {
+      src: logseqImageMatch[1].trim(),
+      alt: null
+    };
+  }
+
+  if (LooksLikeImageSource(trimmed)) {
+    return {
+      src: trimmed,
+      alt: null
+    };
+  }
+
+  return null;
+}
+
+function LooksLikeImageSource(value: string): boolean {
+  return /^(https?:\/\/|\/|\.\.?\/)/i.test(value) || /\.(png|jpe?g|webp|gif|svg)(\?.*)?$/i.test(value);
+}
+
+function ToDisplayTitle(value: string): string {
+  return value
+    .split(/\s+/)
+    .map((part) => {
+      if (part.length === 0) {
+        return part;
+      }
+
+      return `${part[0].toUpperCase()}${part.slice(1).toLowerCase()}`;
+    })
+    .join(" ");
 }

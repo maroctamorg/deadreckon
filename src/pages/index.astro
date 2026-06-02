@@ -4,27 +4,51 @@ import { GetTopicPath, LoadContentGraph } from "@/generation/site.ts";
 
 const graph = await LoadContentGraph();
 const home = graph.home.page;
-const topics = home.topicReferences ?? graph.topics.map((node) => ({ title: node.page.title }));
+const topicNodes =
+  home.topicReferences === null
+    ? graph.topics
+    : home.topicReferences
+        .map((reference) => {
+          const id = reference.title.trim().toLowerCase();
+          return graph.topics.find((node) => node.id === id) ?? null;
+        })
+        .filter((node): node is (typeof graph.topics)[number] => node !== null);
 ---
 
-<BaseLayout
-  title={home.title}
-  description={home.hero.summary}
->
-  <section class="hero-card">
+<BaseLayout title={home.title} description={home.hero.summary}>
+  <section class="page-hero">
+    <nav class="page-hero__nav" aria-label="Main navigation">
+      <a href="/" aria-current="page">Home</a>
+      <a href="#topics">Topics</a>
+    </nav>
+
     <p class="eyebrow">Static knowledge platform</p>
-    <h1>{home.hero.title}</h1>
+    <h1 class="hero-title">{home.hero.title}</h1>
     <p class="lede">{home.hero.summary}</p>
   </section>
 
-  <section class="content-section">
-    <h2>Topics</h2>
-    <ul class="link-list">
-      {topics.map((topic) => (
-        <li>
-          <a href={GetTopicPath(topic.title)}>{topic.title}</a>
-        </li>
+  <section id="topics" class="content-stack" aria-label="Topics">
+    <h2 class="page-title">Topics</h2>
+    <div class="topic-grid">
+      {topicNodes.map((topic) => (
+        <a class="topic-card" href={GetTopicPath(topic.id)}>
+          <div class="topic-card__media">
+            {topic.page.image !== null ? (
+              <img src={topic.page.image.src} alt={topic.page.image.alt ?? topic.page.title} loading="lazy" />
+            ) : (
+              <div class="topic-card__placeholder" aria-hidden="true" />
+            )}
+          </div>
+
+          <div class="topic-card__overlay">
+            <span class="topic-card__title">{topic.page.title}</span>
+          </div>
+
+          <div class="topic-card__meta">
+            <p class="topic-card__summary">{topic.page.overview?.content ?? home.hero.summary}</p>
+          </div>
+        </a>
       ))}
-    </ul>
+    </div>
   </section>
 </BaseLayout>

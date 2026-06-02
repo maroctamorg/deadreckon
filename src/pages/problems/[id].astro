@@ -20,14 +20,18 @@ const { problem } = Astro.props as Props;
 ---
 
 <BaseLayout title={problem.title} description={problem.statement.content}>
+  <section class="page-hero">
+    <nav class="page-hero__nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/#topics">Topics</a>
+    </nav>
+
+    <p class="eyebrow">Problem</p>
+    <h1 class="page-title">{problem.title}</h1>
+    <p class="page-intro">Statement first, then optional hints, sketch, and solution.</p>
+  </section>
+
   <article class="content-page">
-    <header class="page-header">
-      <p class="eyebrow">Problem</p>
-      <h1>{problem.title}</h1>
-      <p class="page-nav">
-        <a href="/">Home</a>
-      </p>
-    </header>
 
     {problem.topicReferences !== null && (
       <section class="content-section">
@@ -49,29 +53,41 @@ const { problem } = Astro.props as Props;
 
     {problem.hints !== null && (
       <section class="content-section">
-        <h2>Hints</h2>
-        <div class="section-body" set:html={RenderSectionHtml(problem.hints.content)} />
+        <details>
+          <summary>Hints</summary>
+          <div class="details-hint">Tap to reveal this optional section.</div>
+          <div class="section-body" set:html={RenderSectionHtml(problem.hints.content)} />
+        </details>
       </section>
     )}
 
     {problem.sketch !== null && (
       <section class="content-section">
-        <h2>Sketch</h2>
-        <div class="section-body" set:html={RenderSectionHtml(problem.sketch.content)} />
+        <details>
+          <summary>Sketch</summary>
+          <div class="details-hint">Tap to reveal this optional section.</div>
+          <div class="section-body" set:html={RenderSectionHtml(problem.sketch.content)} />
+        </details>
       </section>
     )}
 
     {problem.modelSolution !== null && (
       <section class="content-section">
-        <h2>Model Solution</h2>
-        <div class="section-body" set:html={RenderSectionHtml(problem.modelSolution.content)} />
+        <details>
+          <summary>Model Solution</summary>
+          <div class="details-hint">Tap to reveal this optional section.</div>
+          <div class="section-body" set:html={RenderSectionHtml(problem.modelSolution.content)} />
+        </details>
       </section>
     )}
 
     {problem.summary !== null && (
       <section class="content-section">
-        <h2>Summary and Key Ideas</h2>
-        <div class="section-body" set:html={RenderSectionHtml(problem.summary.content)} />
+        <details>
+          <summary>Summary and Key Ideas</summary>
+          <div class="details-hint">Tap to reveal this optional section.</div>
+          <div class="section-body" set:html={RenderSectionHtml(problem.summary.content)} />
+        </details>
       </section>
     )}
   </article>

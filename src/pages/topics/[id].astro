@@ -20,15 +20,18 @@ const { topic } = Astro.props as Props;
 ---
 
 <BaseLayout title={topic.title} description={topic.overview?.content ?? topic.title}>
-  <article class="content-page">
-    <header class="page-header">
-      <p class="eyebrow">Topic</p>
-      <h1>{topic.title}</h1>
-      <p class="page-nav">
-        <a href="/">Home</a>
-      </p>
-    </header>
+  <section class="page-hero">
+    <nav class="page-hero__nav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/#topics">Topics</a>
+    </nav>
 
+    <p class="eyebrow">Topic</p>
+    <h1 class="page-title">{topic.title}</h1>
+    <p class="page-intro">Linked dependencies, overview, and related problems below.</p>
+  </section>
+
+  <article class="content-page">
     {topic.dependencies !== null && (
       <section class="content-section">
         <h2>Dependencies</h2>
@@ -71,8 +74,11 @@ const { topic } = Astro.props as Props;
 
     {topic.summary !== null && (
       <section class="content-section">
-        <h2>Summary and Key Ideas</h2>
-        <div class="section-body" set:html={RenderSectionHtml(topic.summary.content)} />
+        <details>
+          <summary>Summary and Key Ideas</summary>
+          <div class="details-hint">Tap to expand this optional section.</div>
+          <div class="section-body" set:html={RenderSectionHtml(topic.summary.content)} />
+        </details>
       </section>
     )}
   </article>

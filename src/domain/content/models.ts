@@ -10,6 +10,11 @@ export type MarkdownContent = string;
 
 export type OptionalContentSection = ContentSection | null;
 
+export interface ContentImage {
+  src: string;
+  alt: string | null;
+}
+
 export interface ContentReference {
   title: string;
 }
@@ -36,6 +41,7 @@ export interface Topic {
   kind: "topic";
   id: TopicId;
   title: string;
+  image: ContentImage | null;
   dependencies: ContentReference[] | null;
   overview: OptionalContentSection;
   problemReferences: ContentReference[] | null;
