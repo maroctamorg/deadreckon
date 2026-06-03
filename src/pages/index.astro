@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { GetTopicPath, LoadContentGraph } from "@/generation/site.ts";
+import { ExtractPreviewText, GetTopicPath, LoadContentGraph } from "@/generation/site.ts";
 
 const graph = await LoadContentGraph();
 const home = graph.home.page;
@@ -17,13 +17,6 @@ const topicNodes =
 
 <BaseLayout title={home.title} description={home.hero.summary}>
   <section class="page-hero">
-    <nav class="page-hero__nav" aria-label="Main navigation">
-      <a href="/" aria-current="page">Home</a>
-      <a href="#topics">Topics</a>
-    </nav>
-
-    <p class="eyebrow">Static knowledge platform</p>
-    <h1 class="hero-title">{home.hero.title}</h1>
     <p class="lede">{home.hero.summary}</p>
   </section>
 
@@ -45,7 +38,7 @@ const topicNodes =
           </div>
 
           <div class="topic-card__meta">
-            <p class="topic-card__summary">{topic.page.overview?.content ?? home.hero.summary}</p>
+            <p class="topic-card__summary">{ExtractPreviewText(topic.page.overview?.content ?? home.hero.summary)}</p>
           </div>
         </a>
       ))}

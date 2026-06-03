@@ -17,18 +17,18 @@ export async function getStaticPaths() {
 }
 
 const { topic } = Astro.props as Props;
+
+const topicOverviewHtml =
+  topic.overview === null ? null : await RenderSectionHtml(topic.overview.content);
+const topicReferencesHtml =
+  topic.references === null ? null : await RenderSectionHtml(topic.references.content);
+const topicSummaryHtml =
+  topic.summary === null ? null : await RenderSectionHtml(topic.summary.content);
 ---
 
 <BaseLayout title={topic.title} description={topic.overview?.content ?? topic.title}>
   <section class="page-hero">
-    <nav class="page-hero__nav" aria-label="Main navigation">
-      <a href="/">Home</a>
-      <a href="/#topics">Topics</a>
-    </nav>
-
-    <p class="eyebrow">Topic</p>
     <h1 class="page-title">{topic.title}</h1>
-    <p class="page-intro">Linked dependencies, overview, and related problems below.</p>
   </section>
 
   <article class="content-page">
@@ -48,7 +48,7 @@ const { topic } = Astro.props as Props;
     {topic.overview !== null && (
       <section class="content-section">
         <h2>Overview</h2>
-        <div class="section-body" set:html={RenderSectionHtml(topic.overview.content)} />
+        <div class="section-body" set:html={topicOverviewHtml} />
       </section>
     )}
 
@@ -68,7 +68,7 @@ const { topic } = Astro.props as Props;
     {topic.references !== null && (
       <section class="content-section">
         <h2>References</h2>
-        <div class="section-body" set:html={RenderSectionHtml(topic.references.content)} />
+        <div class="section-body" set:html={topicReferencesHtml} />
       </section>
     )}
 
@@ -76,8 +76,7 @@ const { topic } = Astro.props as Props;
       <section class="content-section">
         <details>
           <summary>Summary and Key Ideas</summary>
-          <div class="details-hint">Tap to expand this optional section.</div>
-          <div class="section-body" set:html={RenderSectionHtml(topic.summary.content)} />
+          <div class="section-body" set:html={topicSummaryHtml} />
         </details>
       </section>
     )}

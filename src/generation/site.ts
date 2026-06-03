@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { BuildContentGraph } from "@/domain/content/graphBuilder.ts";
 import type { ContentGraph } from "@/domain/content/models.ts";
 import { ParseLogseqContent } from "@/ingestion/logseq/parseLogseqContent.ts";
+import { ExtractMarkdownPreviewText, RenderMarkdownHtml } from "./renderMarkdown.ts";
 
 const CONTENT_PAGES_DIRECTORY = join(process.cwd(), "content", "logseq", "pages");
 
@@ -24,23 +25,8 @@ export function GetProblemPath(problemId: string): string {
   return `/problems/${EncodePathSegment(problemId)}/`;
 }
 
-export function RenderSectionHtml(content: string): string {
-  const lines = content
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0);
-
-  if (lines.length === 0) {
-    return "";
-  }
-
-  if (lines.length === 1) {
-    return `<p>${EscapeHtml(RenderSectionLine(lines[0]))}</p>`;
-  }
-
-  return `<ul>${lines
-    .map((line) => `<li>${EscapeHtml(RenderSectionLine(line))}</li>`)
-    .join("")}</ul>`;
+export async function RenderSectionHtml(content: string): Promise<string> {
+  return RenderMarkdownHtml(content);
 }
 
 async function LoadContentGraphInternal(): Promise<ContentGraph> {
@@ -69,26 +55,18 @@ async function LoadContentGraphInternal(): Promise<ContentGraph> {
   return graphResult.graph;
 }
 
-function RenderSectionLine(line: string): string {
-  return line.startsWith("- ") ? line.slice(2).trim() : line;
-}
-
 function EncodePathSegment(value: string): string {
   return encodeURIComponent(value.trim().toLowerCase());
 }
 
-function EscapeHtml(value: string): string {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
+export function ExtractPreviewText(content: string): string {
+  return ExtractMarkdownPreviewText(content);
 }
 
 export default {
   LoadContentGraph,
   GetTopicPath,
   GetProblemPath,
-  RenderSectionHtml
+  RenderSectionHtml,
+  ExtractPreviewText
 };

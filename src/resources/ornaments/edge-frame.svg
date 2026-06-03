@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 320" fill="none">
+  <path d="M12 0V320" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M12 8l6 4-6 4-6-4 6-4Zm0 28l6 4-6 4-6-4 6-4Zm0 28l6 4-6 4-6-4 6-4Zm0 28l6 4-6 4-6-4 6-4Zm0 28l6 4-6 4-6-4 6-4Zm0 28l6 4-6 4-6-4 6-4Zm0 28l6 4-6 4-6-4 6-4Zm0 28l6 4-6 4-6-4 6-4Zm0 28l6 4-6 4-6-4 6-4Zm0 28l6 4-6 4-6-4 6-4Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+  <path d="M4 22h16M4 50h16M4 78h16M4 106h16M4 134h16M4 162h16M4 190h16M4 218h16M4 246h16M4 274h16" stroke="currentColor" stroke-width="0.85"/>
+  <path d="M12 22l3 3-3 3-3-3 3-3Zm0 28l3 3-3 3-3-3 3-3Zm0 28l3 3-3 3-3-3 3-3Zm0 28l3 3-3 3-3-3 3-3Zm0 28l3 3-3 3-3-3 3-3Zm0 28l3 3-3 3-3-3 3-3Zm0 28l3 3-3 3-3-3 3-3Zm0 28l3 3-3 3-3-3 3-3Zm0 28l3 3-3 3-3-3 3-3Z" fill="currentColor" opacity="0.85"/>
+</svg>

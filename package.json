@@ -8,11 +8,26 @@
     "dev": "npm run astro -- dev",
     "build": "npm run astro -- build",
     "preview": "npm run astro -- preview",
+    "test": "node --experimental-strip-types --test",
     "typecheck": "tsc --noEmit",
     "validate:logseq": "node --experimental-strip-types scripts/validateLogseqContent.ts"
   },
   "dependencies": {
-    "astro": "^5.0.0"
+    "astro": "^5.0.0",
+    "katex": "^0.16.22",
+    "mdast-util-to-string": "^4.0.0",
+    "playwright": "^1.60.0",
+    "rehype-katex": "^7.0.1",
+    "rehype-mermaid": "^3.0.0",
+    "rehype-pretty-code": "^0.14.3",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^4.2.0",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",

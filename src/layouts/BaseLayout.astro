@@ -19,9 +19,14 @@ const { title, description = "A markdown-driven learning platform." } = Astro.pr
   </head>
   <body>
     <header class="site-header">
-      <div class="ornament ornament--top" aria-hidden>
-        <svg width="120" height="24" viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 12h20l8-6 8 6 8-6 8 6 8-6 8 6 20 0" stroke="#9fbadb" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" />
+      <div class="site-header__row">
+        <a class="site-title" href="/">Dead Reckon</a>
+      </div>
+      <div class="ornament ornament--top" aria-hidden="true">
+        <svg width="96" height="18" viewBox="0 0 96 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 9h11l5-4 5 4 5-4 5 4 5-4 5 4 5-4 5 4h11" stroke="#5d7f68" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M27 9l5-5 5 5-5 5-5-5Z" fill="none" stroke="#b08a3f" stroke-width="1" />
+          <path d="M54 9l5-5 5 5-5 5-5-5Z" fill="none" stroke="#b08a3f" stroke-width="1" />
         </svg>
       </div>
     </header>

@@ -17,18 +17,19 @@ export async function getStaticPaths() {
 }
 
 const { problem } = Astro.props as Props;
+
+const problemStatementHtml = await RenderSectionHtml(problem.statement.content);
+const problemHintsHtml = problem.hints === null ? null : await RenderSectionHtml(problem.hints.content);
+const problemSketchHtml = problem.sketch === null ? null : await RenderSectionHtml(problem.sketch.content);
+const problemModelSolutionHtml =
+  problem.modelSolution === null ? null : await RenderSectionHtml(problem.modelSolution.content);
+const problemSummaryHtml =
+  problem.summary === null ? null : await RenderSectionHtml(problem.summary.content);
 ---
 
 <BaseLayout title={problem.title} description={problem.statement.content}>
   <section class="page-hero">
-    <nav class="page-hero__nav" aria-label="Main navigation">
-      <a href="/">Home</a>
-      <a href="/#topics">Topics</a>
-    </nav>
-
-    <p class="eyebrow">Problem</p>
     <h1 class="page-title">{problem.title}</h1>
-    <p class="page-intro">Statement first, then optional hints, sketch, and solution.</p>
   </section>
 
   <article class="content-page">
@@ -48,15 +49,14 @@ const { problem } = Astro.props as Props;
 
     <section class="content-section">
       <h2>Statement</h2>
-      <div class="section-body" set:html={RenderSectionHtml(problem.statement.content)} />
+      <div class="section-body" set:html={problemStatementHtml} />
     </section>
 
     {problem.hints !== null && (
       <section class="content-section">
         <details>
           <summary>Hints</summary>
-          <div class="details-hint">Tap to reveal this optional section.</div>
-          <div class="section-body" set:html={RenderSectionHtml(problem.hints.content)} />
+          <div class="section-body" set:html={problemHintsHtml} />
         </details>
       </section>
     )}
@@ -65,8 +65,7 @@ const { problem } = Astro.props as Props;
       <section class="content-section">
         <details>
           <summary>Sketch</summary>
-          <div class="details-hint">Tap to reveal this optional section.</div>
-          <div class="section-body" set:html={RenderSectionHtml(problem.sketch.content)} />
+          <div class="section-body" set:html={problemSketchHtml} />
         </details>
       </section>
     )}
@@ -75,8 +74,7 @@ const { problem } = Astro.props as Props;
       <section class="content-section">
         <details>
           <summary>Model Solution</summary>
-          <div class="details-hint">Tap to reveal this optional section.</div>
-          <div class="section-body" set:html={RenderSectionHtml(problem.modelSolution.content)} />
+          <div class="section-body" set:html={problemModelSolutionHtml} />
         </details>
       </section>
     )}
@@ -85,8 +83,7 @@ const { problem } = Astro.props as Props;
       <section class="content-section">
         <details>
           <summary>Summary and Key Ideas</summary>
-          <div class="details-hint">Tap to reveal this optional section.</div>
-          <div class="section-body" set:html={RenderSectionHtml(problem.summary.content)} />
+          <div class="section-body" set:html={problemSummaryHtml} />
         </details>
       </section>
     )}
