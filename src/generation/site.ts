@@ -1,11 +1,9 @@
-import { join } from "node:path";
-
 import { BuildContentGraph } from "@/domain/content/graphBuilder.ts";
 import type { ContentGraph } from "@/domain/content/models.ts";
 import { ParseLogseqContent } from "@/ingestion/logseq/parseLogseqContent.ts";
-import { ExtractMarkdownPreviewText, RenderMarkdownHtml } from "./renderMarkdown.ts";
 
-const CONTENT_PAGES_DIRECTORY = join(process.cwd(), "content", "logseq", "pages");
+import { PAGES_DIRECTORY } from "../../config/constants.ts";
+import { ExtractMarkdownPreviewText, RenderMarkdownHtml } from "./renderMarkdown.ts";
 
 let contentGraphPromise: Promise<ContentGraph> | null = null;
 
@@ -30,7 +28,7 @@ export async function RenderSectionHtml(content: string): Promise<string> {
 }
 
 async function LoadContentGraphInternal(): Promise<ContentGraph> {
-  const summary = await ParseLogseqContent(CONTENT_PAGES_DIRECTORY);
+  const summary = await ParseLogseqContent(PAGES_DIRECTORY);
 
   for (const error of summary.errors) {
     const location =

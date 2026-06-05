@@ -23,8 +23,6 @@ const problemHintsHtml = problem.hints === null ? null : await RenderSectionHtml
 const problemSketchHtml = problem.sketch === null ? null : await RenderSectionHtml(problem.sketch.content);
 const problemModelSolutionHtml =
   problem.modelSolution === null ? null : await RenderSectionHtml(problem.modelSolution.content);
-const problemSummaryHtml =
-  problem.summary === null ? null : await RenderSectionHtml(problem.summary.content);
 ---
 
 <BaseLayout title={problem.title} description={problem.statement.content}>
@@ -75,15 +73,6 @@ const problemSummaryHtml =
         <details>
           <summary>Model Solution</summary>
           <div class="section-body" set:html={problemModelSolutionHtml} />
-        </details>
-      </section>
-    )}
-
-    {problem.summary !== null && (
-      <section class="content-section">
-        <details>
-          <summary>Summary and Key Ideas</summary>
-          <div class="section-body" set:html={problemSummaryHtml} />
         </details>
       </section>
     )}

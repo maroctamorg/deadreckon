@@ -15,31 +15,43 @@ export function ParseLogseqBullets(content: string): LogseqBullet[] {
   const roots: LogseqBullet[] = [];
   const stack: BulletStackEntry[] = [];
   const lines = content.split(/\r?\n/);
+  let current: LogseqBullet | null = null;
+  let currentLevel: number | null = null;
 
-  lines.forEach((line, index) => {
-    if (line.trim().length === 0) {
-      return;
-    }
-
-    const bullet = ParseLogseqBulletLine(line, index + 1);
-
-    if (bullet === null) {
-      return;
-    }
-
-    while (stack.length > 0 && stack[stack.length - 1].level >= bullet.level) {
+  const flush = (entry: BulletStackEntry) => {
+    while (stack.length > 0 && stack[stack.length - 1].level >= entry.level) {
       stack.pop();
     }
 
     if (stack.length === 0) {
-      roots.push(bullet.bullet);
+      roots.push(entry.bullet);
     } else {
-      stack[stack.length - 1].bullet.children.push(bullet.bullet);
+      stack[stack.length - 1].bullet.children.push(entry.bullet);
     }
 
-    stack.push(bullet);
-  });
+    stack.push(entry);
+  };
 
+  for (let i = 0; i < lines.length; i++) {
+    const parsed = ParseLogseqBulletLine(lines[i], i + 1);
+
+    // new bullet
+    if (parsed) {
+      flush(parsed);
+      current = parsed.bullet;
+      currentLevel = parsed.level;
+
+      continue;
+    }
+
+    // multiline continuation (only if we already have a bullet)
+    if (current) {
+      const trimmed = lines[i].trimEnd();
+      if (trimmed.length === 0) continue;
+
+      current.content += "\n" + trimmed;
+    }
+  }
   return roots;
 }
 
@@ -48,15 +60,12 @@ function ParseLogseqBulletLine(
   lineNumber: number
 ): BulletStackEntry | null {
   const match = line.match(/^(\s*)-\s?(.*)$/);
-
-  if (match === null) {
-    return null;
-  }
+  if (!match) return null;
 
   return {
     level: GetIndentLevel(match[1]),
     bullet: {
-      content: match[2].trim(),
+      content: match[2],
       line: lineNumber,
       children: []
     }

@@ -5,6 +5,7 @@ import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeKatex from "rehype-katex";
+import remarkBreaks from "remark-breaks";
 import rehypeMermaid from "rehype-mermaid";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
@@ -14,14 +15,15 @@ import type { Root, Link } from "mdast";
 const markdownToHtmlProcessor = unified()
   .use(remarkParse)
   .use(remarkGfm)
+  .use(remarkBreaks)
   .use(remarkMath)
   .use(remarkLogseqLinks)
   .use(remarkRehype, { allowDangerousHtml: false })
-  .use(rehypeMermaid, { strategy: "inline-svg" })
   .use(rehypePrettyCode, {
-    theme: "nord",
-    keepBackground: false
+    theme: "github-light",
+    keepBackground: true
   })
+  .use(rehypeMermaid, { strategy: "inline-svg" })
   .use(rehypeKatex)
   .use(rehypeStringify);
 

@@ -276,7 +276,17 @@ body::after {
   margin-top: auto;
   padding: 0.9rem 1rem 1rem;
   color: rgba(22, 34, 45, 0.88);
-  background: linear-gradient(180deg, rgba(248, 251, 254, 0.08), rgba(248, 251, 254, 0.82));
+  background: linear-gradient(180deg, rgba(248, 251, 254, 0.0850), rgba(248, 251, 254, 0.82));
+
+  transition: background 160ms ease;
+}
+
+.topic-card:hover .topic-card__meta {
+  background: linear-gradient(
+    180deg,
+    rgba(248, 251, 254, 0.55),
+    rgba(248, 251, 254, 0.98)
+  );
 }
 
 /* =========================

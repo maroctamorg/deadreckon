@@ -18,12 +18,12 @@ export async function getStaticPaths() {
 
 const { topic } = Astro.props as Props;
 
+const topicSummaryHtml =
+  topic.summary === null ? null : await RenderSectionHtml(topic.summary.content);
 const topicOverviewHtml =
   topic.overview === null ? null : await RenderSectionHtml(topic.overview.content);
 const topicReferencesHtml =
   topic.references === null ? null : await RenderSectionHtml(topic.references.content);
-const topicSummaryHtml =
-  topic.summary === null ? null : await RenderSectionHtml(topic.summary.content);
 ---
 
 <BaseLayout title={topic.title} description={topic.overview?.content ?? topic.title}>
@@ -42,6 +42,13 @@ const topicSummaryHtml =
             </li>
           ))}
         </ul>
+      </section>
+    )}
+
+    {topic.summary !== null && (
+      <section class="content-section">
+        <h2>Summary</h2>
+        <div class="section-body" set:html={topicSummaryHtml} />
       </section>
     )}
 
@@ -69,15 +76,6 @@ const topicSummaryHtml =
       <section class="content-section">
         <h2>References</h2>
         <div class="section-body" set:html={topicReferencesHtml} />
-      </section>
-    )}
-
-    {topic.summary !== null && (
-      <section class="content-section">
-        <details>
-          <summary>Summary and Key Ideas</summary>
-          <div class="section-body" set:html={topicSummaryHtml} />
-        </details>
       </section>
     )}
   </article>

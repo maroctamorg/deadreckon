@@ -11,6 +11,7 @@ export type MarkdownContent = string;
 export type OptionalContentSection = ContentSection | null;
 
 export interface ContentImage {
+  base: string;
   src: string;
   alt: string | null;
 }
@@ -43,10 +44,10 @@ export interface Topic {
   title: string;
   image: ContentImage | null;
   dependencies: ContentReference[] | null;
+  summary: OptionalContentSection;
   overview: OptionalContentSection;
   problemReferences: ContentReference[] | null;
   references: OptionalContentSection;
-  summary: OptionalContentSection;
 }
 
 export interface Problem {
@@ -58,7 +59,6 @@ export interface Problem {
   hints: OptionalContentSection;
   sketch: OptionalContentSection;
   modelSolution: OptionalContentSection;
-  summary: OptionalContentSection;
 }
 
 export type ContentPage = HomePage | Topic | Problem;

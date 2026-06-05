@@ -27,7 +27,7 @@ const topicNodes =
         <a class="topic-card" href={GetTopicPath(topic.id)}>
           <div class="topic-card__media">
             {topic.page.image !== null ? (
-              <img src={topic.page.image.src} alt={topic.page.image.alt ?? topic.page.title} loading="lazy" />
+              <img src={topic.page.image.base + "/" + topic.page.image.src} alt={topic.page.image.alt ?? topic.page.title} loading="lazy" />
             ) : (
               <div class="topic-card__placeholder" aria-hidden="true" />
             )}
@@ -38,7 +38,7 @@ const topicNodes =
           </div>
 
           <div class="topic-card__meta">
-            <p class="topic-card__summary">{ExtractPreviewText(topic.page.overview?.content ?? home.hero.summary)}</p>
+            <p class="topic-card__summary">{ExtractPreviewText(topic.page.summary?.content ?? home.hero.summary)}</p>
           </div>
         </a>
       ))}

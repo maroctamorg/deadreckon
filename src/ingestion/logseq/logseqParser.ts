@@ -1,5 +1,7 @@
 import { basename, extname } from "node:path";
 
+import { PAGES_DIRECTORY } from "../../../config/constants.ts";
+
 import type {
   ContentPageParseResult,
   ContentPageTypeTag,
@@ -128,10 +130,10 @@ function ParseTopic(
       title,
       image,
       dependencies: dependencies.references,
+      summary: ParseSection(sections.get("summary")),
       overview: ParseSection(sections.get("overview")),
       problemReferences: problemReferences.references,
-      references: ParseSection(sections.get("references")),
-      summary: ParseSection(sections.get("summary and key ideas"))
+      references: ParseSection(sections.get("references"))
     }
   };
 }
@@ -165,8 +167,7 @@ function ParseProblem(
     statement,
     hints: ParseSection(sections.get("hints")),
     sketch: ParseSection(sections.get("sketch")),
-    modelSolution: ParseSection(sections.get("model solution")),
-    summary: ParseSection(sections.get("summary and key ideas"))
+    modelSolution: ParseSection(sections.get("model solution"))
   };
 
   return { page: problem, errors: topicReferences.errors };
@@ -291,6 +292,7 @@ function ParseImageContent(content: string): ContentImage | null {
 
   if (markdownImageMatch !== null) {
     return {
+      base: PAGES_DIRECTORY,
       src: markdownImageMatch[2].trim(),
       alt: markdownImageMatch[1].trim().length > 0 ? markdownImageMatch[1].trim() : null
     };
@@ -300,6 +302,7 @@ function ParseImageContent(content: string): ContentImage | null {
 
   if (logseqImageMatch !== null) {
     return {
+      base: PAGES_DIRECTORY,
       src: logseqImageMatch[1].trim(),
       alt: null
     };
@@ -307,6 +310,7 @@ function ParseImageContent(content: string): ContentImage | null {
 
   if (LooksLikeImageSource(trimmed)) {
     return {
+      base: PAGES_DIRECTORY,
       src: trimmed,
       alt: null
     };

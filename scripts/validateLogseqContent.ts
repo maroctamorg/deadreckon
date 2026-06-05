@@ -1,9 +1,6 @@
-import { join } from "node:path";
-
+import { PAGES_DIRECTORY } from "../config/constants.ts";
 import { BuildContentGraph } from "../src/domain/content/graphBuilder.ts";
 import { ParseLogseqContent } from "../src/ingestion/logseq/parseLogseqContent.ts";
-
-const PAGES_DIRECTORY = join(import.meta.dirname, "..", "content", "logseq", "pages");
 
 const summary = await ParseLogseqContent(PAGES_DIRECTORY);
 
