@@ -7,7 +7,6 @@ interface Props {
 import "@/styles/global.css";
 
 import topBrand from "../resources/ornaments/top-brand.svg?raw";
-import edgeFrame from "../resources/ornaments/edge-frame.svg?raw";
 
 const { title, description = "A markdown-driven learning platform." } = Astro.props;
 ---
@@ -27,14 +26,6 @@ const { title, description = "A markdown-driven learning platform." } = Astro.pr
       </div>
       <div class="ornament ornament--top" aria-hidden="true" set:html={topBrand} />
     </header>
-
-    <!-- <div class="ornament ornament--left" aria-hidden="true">
-      <div class="ornament__svg" set:html={edgeFrame} />
-    </div>
-
-    <div class="ornament ornament--right" aria-hidden="true">
-      <div class="ornament__svg ornament__svg--flip" set:html={edgeFrame} />
-    </div> -->
 
     <main class="page-shell">
       <slot />

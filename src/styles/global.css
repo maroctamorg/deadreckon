@@ -95,59 +95,11 @@ body::after {
 }
 
 /* =========================
-   EDGE ORNAMENTS
-   ========================= */
-
-.ornament--left,
-.ornament--right {
-  position: fixed;
-  top: var(--header-height);
-  bottom: 0;
-
-  width: 3.5rem;
-
-  opacity: 0.92;
-  z-index: 0;
-
-  overflow: hidden;
-
-  display: block;
-}
-
-/* CRITICAL: explicit horizontal anchoring */
-.ornament--left {
-  left: 0;
-}
-
-.ornament--right {
-  right: 0;
-}
-
-/* ensure internal SVG host fills container */
-.ornament__svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* injected SVG itself */
-.ornament__svg svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* mirror only the actual SVG */
-.ornament--right .ornament__svg svg {
-  transform: scaleX(-1);
-  transform-origin: center;
-}
-
-/* =========================
    TOP ORNAMENT
    ========================= */
 
 .ornament--top {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
