@@ -1,0 +1,7 @@
+Having proven the utility in the context of a single logseq graph, we want to now generalize this project:
+1. factor out the content - it should be fetched externally at frontend build time - e.g. by cloning a github repo (note that for this reason, we want lightweight and independent frontend build/deployment from any future backend)
+2. make this configurable - introduce a tag which sits at the top of any page and defines which pages should be picked up and built into the site; this enables multiple sites to build off of the same logseq graph; potentially, map multiple of these as sub-sites of a single site, leaving the ability for cross-references. This tag also defines in its own page the configuration elements of its site: for instance, what types of pages there are, what sections compose each type of page, rendering properties for each section (display title?, collapsible?, ordering, etc..)
+    2. a. rather than [[home]] (perhaps keep default), make start page configurable, and build off of that
+    2. b. [[<site>]] page model: sections > [[<section>] > collapsible, omit title, etc..]
+3. support navigation and search on the graph
+4. keep the door open (technically) for the app to be further developed/extended to support functionalities such as user management, progress tracking, view counts, likes, comments, forums, exercise/essay submissions, etc..
