@@ -1,0 +1,12 @@
+name: Deployment pipeline
+run-name: Deploy ${{ github.ref_name }} to RPI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: debian-latest
+    steps:
+      - name: Trigger deployment
+        run: curl "${{ secrets.RPI_DEPLOY_URL }}/${{ github.ref_name }}"
