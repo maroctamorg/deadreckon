@@ -1,10 +1,14 @@
-FROM node:25 AS build-stage
+FROM node:22-slim AS build-stage
 
 WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm ci --omit-dev
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
 
 RUN npm test
 
