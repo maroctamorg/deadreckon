@@ -15,11 +15,11 @@ Logseq links enable navigation and search.
 
 ## System architecture
 
-See [docs/ARCHITECTURE.md](ARCHITECTURE.md) for detailed technical architecture and design decisions.
+See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed technical architecture and design decisions.
 
 ## Design principles
 
-See [docs/DESIGN.md](DESIGN.md) for detailed product design and user experience considerations.
+See [DESIGN.md](docs/DESIGN.md) for detailed product design and user experience considerations.
 
 ## Future Development
-See [docs/PLAN.md], for a high-level overview.
+See [PLAN.md](PLAN.md), for a high-level overview.
