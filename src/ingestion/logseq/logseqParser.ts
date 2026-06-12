@@ -292,7 +292,6 @@ function ParseImageContent(content: string): ContentImage | null {
 
   if (markdownImageMatch !== null) {
     return {
-      base: PAGES_DIRECTORY,
       src: markdownImageMatch[2].trim(),
       alt: markdownImageMatch[1].trim().length > 0 ? markdownImageMatch[1].trim() : null
     };
@@ -302,7 +301,6 @@ function ParseImageContent(content: string): ContentImage | null {
 
   if (logseqImageMatch !== null) {
     return {
-      base: PAGES_DIRECTORY,
       src: logseqImageMatch[1].trim(),
       alt: null
     };
@@ -310,7 +308,6 @@ function ParseImageContent(content: string): ContentImage | null {
 
   if (LooksLikeImageSource(trimmed)) {
     return {
-      base: PAGES_DIRECTORY,
       src: trimmed,
       alt: null
     };

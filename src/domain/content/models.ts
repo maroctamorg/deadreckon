@@ -11,7 +11,6 @@ export type MarkdownContent = string;
 export type OptionalContentSection = ContentSection | null;
 
 export interface ContentImage {
-  base: string;
   src: string;
   alt: string | null;
 }

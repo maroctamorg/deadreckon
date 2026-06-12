@@ -27,7 +27,7 @@ const topicNodes =
         <a class="topic-card" href={GetTopicPath(topic.id)}>
           <div class="topic-card__media">
             {topic.page.image !== null ? (
-              <img src={topic.page.image.base + "/" + topic.page.image.src} alt={topic.page.image.alt ?? topic.page.title} loading="lazy" />
+              <img src={`/logseq-assets/${topic.page.image.src}`} alt={topic.page.image.alt ?? topic.page.title} loading="lazy" />
             ) : (
               <div class="topic-card__placeholder" aria-hidden="true" />
             )}
