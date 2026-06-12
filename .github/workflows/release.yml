@@ -26,7 +26,7 @@ jobs:
         run: npm run test
 
   release:
-    needs: [simple_deployment_pipeline]
+    needs: [build]
     runs-on: debian-latest
     if: ${{ !contains(join(github.event.commits.*.message), '#skip') }}
     steps:
