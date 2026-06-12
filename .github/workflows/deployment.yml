@@ -7,6 +7,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Trigger deployment
-        run: curl "${{ secrets.RPI_DEPLOY_URL }}/${{ github.ref_name }}"
+        run: |
+          curl -X POST "${{ secrets.RPI_DEPLOY_URL }}/deadreckon" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.RPI_DEPLOY_TOKEN }}" \
+            -d "{\"version\": \"${{ github.ref_name }}\"}"
