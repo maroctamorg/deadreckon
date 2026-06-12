@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Trigger deployment
         run: |
-          curl -X POST "${{ secrets.RPI_DEPLOY_URL }}/deadreckon" \
+          curl -X POST "${{ secrets.RPI_DEPLOY_URL }}" \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${{ secrets.RPI_DEPLOY_TOKEN }}" \
             -d "{\"version\": \"${{ github.ref_name }}\"}"
