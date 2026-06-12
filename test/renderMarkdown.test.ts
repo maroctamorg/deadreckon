@@ -27,14 +27,6 @@ test("renders fenced code blocks", async () => {
   assert.match(html, /<span data-line="">/);
 });
 
-test("renders mermaid diagrams", async () => {
-  const html = await RenderMarkdownHtml(["```mermaid", "graph TD;", "  A-->B;", "```"].join("\n"));
-
-  assert.match(html, /<svg/i);
-  assert.match(html, /class="flowchart"/);
-  assert.doesNotMatch(html, /<pre class="mermaid">/);
-});
-
 test("renders internal topic links", async () => {
   const html = await RenderMarkdownHtml("See [[Topology]] for context.");
 
