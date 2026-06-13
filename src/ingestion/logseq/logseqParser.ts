@@ -1,7 +1,5 @@
 import { basename, extname } from "node:path";
 
-import { PAGES_DIRECTORY } from "../../../config/constants.ts";
-
 import type {
   ContentPageParseResult,
   ContentPageTypeTag,
@@ -288,36 +286,16 @@ function ParseImageContent(content: string): ContentImage | null {
     return null;
   }
 
-  const markdownImageMatch = trimmed.match(/^!\[([^\]]*)\]\((.+)\)$/);
-
-  if (markdownImageMatch !== null) {
-    return {
-      src: markdownImageMatch[2].trim(),
-      alt: markdownImageMatch[1].trim().length > 0 ? markdownImageMatch[1].trim() : null
-    };
-  }
-
   const logseqImageMatch = trimmed.match(/^!\[\[(.+)\]\]$/);
 
   if (logseqImageMatch !== null) {
     return {
-      src: logseqImageMatch[1].trim(),
-      alt: null
-    };
-  }
-
-  if (LooksLikeImageSource(trimmed)) {
-    return {
-      src: trimmed,
+      src: basename(logseqImageMatch[1].trim()),
       alt: null
     };
   }
 
   return null;
-}
-
-function LooksLikeImageSource(value: string): boolean {
-  return /^(https?:\/\/|\/|\.\.?\/)/i.test(value) || /\.(png|jpe?g|webp|gif|svg)(\?.*)?$/i.test(value);
 }
 
 function ToDisplayTitle(value: string): string {
