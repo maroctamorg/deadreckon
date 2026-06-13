@@ -286,12 +286,12 @@ function ParseImageContent(content: string): ContentImage | null {
     return null;
   }
 
-  const logseqImageMatch = trimmed.match(/^!\[\[(.+)\]\]$/);
+  const markdownImageMatch = trimmed.match(/^!\[([^\]]*)\]\((.+)\)$/);
 
-  if (logseqImageMatch !== null) {
+  if (markdownImageMatch !== null) {
     return {
-      src: basename(logseqImageMatch[1].trim()),
-      alt: null
+      src: basename(markdownImageMatch[2].trim()),
+      alt: markdownImageMatch[1].trim().length > 0 ? markdownImageMatch[1].trim() : null
     };
   }
 
